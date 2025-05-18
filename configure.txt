@@ -13,11 +13,8 @@ Structure Project
     │   ├── Dockerfile
     │   └── docker-compose.yml
     │
-    ├── database/
-    │   └── docker-compose.yml
-    │
-    └── shared/
-        └── .env (opsional)
+    └── database/
+        └── docker-compose.yml
 
 External Network dan Volume (Shared)
 
