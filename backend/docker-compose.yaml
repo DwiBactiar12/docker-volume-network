@@ -1,0 +1,13 @@
+services:
+  backend:
+    build: .
+    ports:
+      - "5001:5001"
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/learn1
+    networks:
+      - learn1
+
+networks:
+  learn1:
+    external: true

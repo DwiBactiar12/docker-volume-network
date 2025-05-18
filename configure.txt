@@ -1,0 +1,39 @@
+Structure Project
+
+    my-startup-app/
+    │
+    ├── frontend/
+    │   ├── nginx/
+    │   │   └── default.conf
+    │   └── docker-compose.yml
+    │
+    ├── backend/
+    │   ├── app.py
+    │   ├── requirements.txt
+    │   ├── Dockerfile
+    │   └── docker-compose.yml
+    │
+    ├── database/
+    │   └── docker-compose.yml
+    │
+    └── shared/
+        └── .env (opsional)
+
+External Network dan Volume (Shared)
+
+    docker network create app-network
+    docker volume create postgres-data
+
+Execute the app
+
+    cd database
+    docker-compose up -d
+
+    cd ../backend
+    docker-compose up -d
+
+    cd ../frontend
+    docker-compose up -d
+
+
+

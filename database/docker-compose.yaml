@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_learn
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app_db
+    volumes:
+      - learn1-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - learn1
+
+volumes:
+  learn1-data:
+
+networks:
+  learn1:
+    external: true

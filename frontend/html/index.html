@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Simple CRUD with Flask Backend</title>
+    </head>
+    <body>
+        <h1>Simple CRUD Example</h1>
+
+        <form id="item-form">
+            <input type="hidden" id="item-id" />
+            <input
+                type="text"
+                id="item-name"
+                placeholder="Item name"
+                required
+            />
+            <button type="submit">Save</button>
+        </form>
+
+        <ul id="items-list"></ul>
+
+        <script>
+            const apiUrl = "/api/items";
+
+            async function fetchItems() {
+                const res = await fetch(apiUrl);
+                const items = await res.json();
+                const list = document.getElementById("items-list");
+                list.innerHTML = "";
+                items.forEach((item) => {
+                    const li = document.createElement("li");
+                    li.textContent = item.name;
+                    li.dataset.id = item.id;
+
+                    const editBtn = document.createElement("button");
+                    editBtn.textContent = "Edit";
+                    editBtn.onclick = () => {
+                        document.getElementById("item-id").value = item.id;
+                        document.getElementById("item-name").value = item.name;
+                    };
+
+                    const deleteBtn = document.createElement("button");
+                    deleteBtn.textContent = "Delete";
+                    deleteBtn.onclick = async () => {
+                        await fetch(`${apiUrl}/${item.id}`, {
+                            method: "DELETE",
+                        });
+                        fetchItems();
+                    };
+
+                    li.appendChild(editBtn);
+                    li.appendChild(deleteBtn);
+                    list.appendChild(li);
+                });
+            }
+
+            document.getElementById("item-form").onsubmit = async (e) => {
+                e.preventDefault();
+                const id = document.getElementById("item-id").value;
+                const name = document.getElementById("item-name").value;
+                const method = id ? "PUT" : "POST";
+                const url = id ? `${apiUrl}/${id}` : apiUrl;
+
+                await fetch(url, {
+                    method,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name }),
+                });
+
+                document.getElementById("item-id").value = "";
+                document.getElementById("item-name").value = "";
+                fetchItems();
+            };
+
+            fetchItems();
+        </script>
+    </body>
+</html>

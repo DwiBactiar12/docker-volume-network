@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./html:/usr/share/nginx/html:ro
+    networks:
+      - learn1
+
+networks:
+  learn1:
+    external: true
