@@ -1,6 +1,6 @@
 Structure Project
 
-    my-startup-app/
+    docker-volume-network/
     │
     ├── frontend/
     │   ├── nginx/
